@@ -1,4 +1,4 @@
-import { ICar, IEngineStatus, IWinner } from '../interfaces';
+import { ICar, IEngineStatus } from '../interfaces';
 
 const url = 'http://127.0.0.1:3000';
 
@@ -120,12 +120,12 @@ export const getAllWinners = async (
   limit = 10,
   sort = 'wins',
   order = 'DESC'
-): Promise<{ result: IWinner[]; total: string }> => {
+): Promise<{ result: ICar[]; total: string }> => {
   try {
     const data = await fetch(
       `${url}/winners?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`
     );
-    const res: IWinner[] = await data.json();
+    const res: ICar[] = await data.json();
 
     if (data.status === 200) {
       return {
@@ -142,10 +142,10 @@ export const getAllWinners = async (
 
 export const getWinner = async (
   id: number
-): Promise<{ result: IWinner; status: number }> => {
+): Promise<{ result: ICar; status: number }> => {
   try {
     const data = await fetch(`${url}/winners/${id}`);
-    const res: IWinner = await data.json();
+    const res: ICar = await data.json();
 
     return { result: res, status: data.status };
   } catch (error) {
@@ -153,7 +153,7 @@ export const getWinner = async (
   }
 };
 
-export const createWinner = async (winner: IWinner): Promise<number> => {
+export const createWinner = async (winner: ICar): Promise<number> => {
   try {
     const data = await fetch(`${url}/winners`, {
       method: 'POST',
@@ -183,7 +183,7 @@ export const deleteWinner = async (id: number): Promise<number> => {
   }
 };
 
-export const updateWinner = async (winner: IWinner): Promise<number> => {
+export const updateWinner = async (winner: ICar): Promise<number> => {
   try {
     const data = await fetch(`${url}/winner/${winner.id}`, {
       method: 'PUT',

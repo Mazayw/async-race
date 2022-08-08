@@ -1,6 +1,12 @@
 import { CreateElement } from '../createElement';
 import { nameGenerator, colorGenerator } from './randomizer';
-import { createCar, getAllCars } from '../api';
+import {
+  createCar,
+  getAllCars,
+  createWinner,
+  getWinner,
+  updateWinner,
+} from '../api';
 import { ICar, IAllCars } from '../../interfaces';
 import { GarageCar } from './car/index';
 import { Winner } from './winner/index';
@@ -208,20 +214,34 @@ export class GarageWrapper extends CreateElement {
     });
 
     const winner = await Promise.race(res);
-    console.log('winner', winner);
 
     const winCar: ICar = {
       id: winner.car.id,
       name: winner.car.name,
       color: winner.car.color,
-      speed: +(winner.speed / 1000).toFixed(2),
+      time: +(winner.speed / 1000).toFixed(2),
       wins: 1,
     };
 
     this.winnerPopup = new Winner(this.element, winCar);
 
+    await this.createOrUpdateWinner(winCar);
+
     this.winnerPopup.element.onclick = () => {
       this.winnerPopup.remove();
     };
+  }
+
+  private async createOrUpdateWinner(winnerCar: ICar): Promise<void> {
+    const carData = await getWinner(winnerCar.id);
+
+    if (carData.status === 200) {
+      carData.result.wins++;
+      winnerCar.wins = carData.result.wins;
+
+      await updateWinner(winnerCar);
+    } else {
+      await createWinner(winnerCar);
+    }
   }
 }

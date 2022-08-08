@@ -13,7 +13,7 @@ export class Winner extends CreateElement {
     title.element.innerHTML = `
       <span>${car.name}</span>
       Wins in 
-      <span>${car.speed}</span>
+      <span>${car.time}</span>
       sec...
     `;
   }
