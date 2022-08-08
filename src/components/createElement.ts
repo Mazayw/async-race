@@ -25,6 +25,12 @@ export class CreateElement {
     this.element.remove();
   }
 
+  removeChilds(): void {
+    while (this.element.lastElementChild) {
+      this.element.removeChild(this.element.lastElementChild);
+    }
+  }
+
   setDisabled(isDisabled = false): void {
     this.element.toggleAttribute('disabled', isDisabled);
   }

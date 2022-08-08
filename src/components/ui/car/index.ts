@@ -18,6 +18,10 @@ export class GarageCar extends CreateElement {
 
   private carAnimation: Animation | undefined;
 
+  private buttonStart: CreateElement;
+
+  private buttonStop: CreateElement;
+
   constructor(parent: HTMLElement, car: ICar) {
     super(parent, 'li', ['car']);
     this.car = car;
@@ -37,6 +41,7 @@ export class GarageCar extends CreateElement {
     buttonDelete.element.onclick = () => {
       if (car.id) deleteCar(car.id);
       this.remove();
+      //update title
     };
 
     const carName = new CreateElement(
@@ -47,26 +52,26 @@ export class GarageCar extends CreateElement {
     );
     const road = new CreateElement(this.element, 'div', ['road']);
     const controls = new CreateElement(this.element, 'div', ['controls']);
-    const buttonStart = new CreateElement(
+    this.buttonStart = new CreateElement(
       controls.element,
       'button',
       ['button', 'start'],
       'Start'
     );
 
-    const buttonStop = new CreateElement(
+    this.buttonStop = new CreateElement(
       controls.element,
       'button',
       ['button', 'stop'],
       'Stop'
     );
 
-    buttonStart.element.onclick = () => {
-      if (car.id) this.startCarEngine(car.id, buttonStart, buttonStop);
+    this.buttonStart.element.onclick = () => {
+      if (car.id) this.startCarEngine(car.id);
     };
 
-    buttonStop.element.onclick = () => {
-      if (car.id) this.stopCarEngine(car.id, buttonStart, buttonStop);
+    this.buttonStop.element.onclick = () => {
+      if (car.id) this.stopCarEngine(car.id);
     };
 
     this.carImg = new CreateElement(
@@ -75,12 +80,8 @@ export class GarageCar extends CreateElement {
       ['car-icon'],
       carIcon(car.color)
     );
-    const flag = new CreateElement(
-      road.element,
-      'img',
-      ['flag'],
-      carIcon(car.color)
-    );
+
+    const flag = new CreateElement(road.element, 'img', ['flag']);
     flag.element.setAttribute('src', './../../assets/flag.svg');
     flag.element.setAttribute('alt', 'Race flag');
   }
@@ -90,30 +91,22 @@ export class GarageCar extends CreateElement {
     stop.setDisabled(!type);
   }
 
-  async stopCarEngine(
-    id: number,
-    start: CreateElement,
-    stop: CreateElement
-  ): Promise<void> {
+  async stopCarEngine(id: number): Promise<void> {
     const data = await startStopEngine(id, 'stopped');
 
     if (data.status === 200) {
-      this.updateButtons(start, stop, false);
+      this.updateButtons(this.buttonStart, this.buttonStop, false);
       this.speed = 0;
       this.carAnimation?.cancel();
       this.carImg.element.style.left = '2%';
     }
   }
 
-  async startCarEngine(
-    id: number,
-    start: CreateElement,
-    stop: CreateElement
-  ): Promise<void> {
+  async startCarEngine(id: number): Promise<void> {
     const data = await startStopEngine(id, 'started');
     console.log(id);
     if (data.status === 200) {
-      this.updateButtons(start, stop, true);
+      this.updateButtons(this.buttonStart, this.buttonStop, true);
 
       const { result } = data;
       const time = result.distance / result.velocity;

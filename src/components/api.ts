@@ -38,7 +38,7 @@ export const getCar = async (id: number): Promise<ICar | null> => {
   }
 };
 
-export const createCar = async (car: ICar): Promise<number> => {
+export const createCar = async (car: ICar): Promise<void> => {
   try {
     const data = await fetch(`${url}/garage`, {
       method: 'POST',
@@ -48,7 +48,7 @@ export const createCar = async (car: ICar): Promise<number> => {
       body: JSON.stringify(car),
     });
 
-    return data.status;
+    //    return data.status;
   } catch (error) {
     throw new Error(error);
   }
@@ -106,7 +106,9 @@ export const startStopEngine = async (
 
 export const switchEngineDrive = async (id: number): Promise<number> => {
   try {
-    const data = await fetch(`${url}/engine?id=${id}&status=drive`);
+    const data = await fetch(`${url}/engine?id=${id}&status=drive`, {
+      method: 'PATCH',
+    });
     return data.status;
   } catch (error) {
     throw new Error(error);
