@@ -9,7 +9,7 @@ import {
 } from '../api';
 import { ICar, IAllCars } from '../../interfaces';
 import { GarageCar } from './car/index';
-import { Winner } from './winner/index';
+import { Winner } from './winnerPopup/index';
 
 export class GarageWrapper extends CreateElement {
   cars: IAllCars;
@@ -25,6 +25,10 @@ export class GarageWrapper extends CreateElement {
   allCarsElements: GarageCar[];
 
   winnerPopup: Winner;
+
+  newCar: ICar;
+
+  updateCar: ICar;
 
   constructor(parent: HTMLElement) {
     super(parent, 'header', ['header']);
@@ -48,13 +52,16 @@ export class GarageWrapper extends CreateElement {
     const headerChangeAdd = new CreateElement(headerChange.element, 'form', [
       'header-change__add',
     ]);
+
     const nameAdd = new CreateElement(headerChangeAdd.element, 'input', [
       'name-add',
     ]);
+
     nameAdd.element.setAttribute('type', 'text');
     const colorAdd = new CreateElement(headerChangeAdd.element, 'input', [
       'color-add',
     ]);
+
     colorAdd.element.setAttribute('type', 'color');
     const buttonAdd = new CreateElement(
       headerChangeAdd.element,
@@ -62,7 +69,19 @@ export class GarageWrapper extends CreateElement {
       ['button', 'submit-add'],
       'Create'
     );
+
     buttonAdd.element.setAttribute('type', 'button');
+    buttonAdd.element.onclick = async () => {
+      const name = (nameAdd.element as HTMLInputElement).value;
+      const color = (colorAdd.element as HTMLInputElement).value;
+
+      if (name && color) {
+        createCar({ name: name, color: color });
+        await this.updateCars();
+        await this.drawCars();
+        await this.updateTitle();
+      }
+    };
 
     const headerChangeUpdate = new CreateElement(headerChange.element, 'form', [
       'header-change__update',
