@@ -1,5 +1,5 @@
 import { CreateElement } from '../createElement';
-import { nameGenerator, colorGenerator } from './randomizer';
+import { nameGenerator, colorGenerator } from '../randomizer';
 import {
   createCar,
   getAllCars,
@@ -116,6 +116,10 @@ export class GarageWrapper extends CreateElement {
     );
     buttonReset.element.setAttribute('type', 'button');
 
+    buttonReset.element.onclick = () => {
+      this.resetCars();
+    };
+
     const buttonGenerate = new CreateElement(
       headerChangeUpdate.element,
       'button',
@@ -230,6 +234,12 @@ export class GarageWrapper extends CreateElement {
     this.winnerPopup.element.onclick = () => {
       this.winnerPopup.remove();
     };
+  }
+
+  private async resetCars(): Promise<void> {
+    this.allCarsElements.map(async (car) => {
+      await car.stopCarEngine(car.car.id);
+    });
   }
 
   private async createOrUpdateWinner(winnerCar: ICar): Promise<void> {
