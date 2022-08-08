@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.road {
+  display: flex;
+  position: relative;
+  margin-top: 10px;
+  border-bottom: 3px dashed #000000;
+  width: 100vw;
+  height: 67px;
+}
+
+.car {
+  display: flex;
+  flex-flow: column;
+  margin: 100px 0;
+}
+
+.button {
+  width: 150px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  background-color: rgb(0, 190, 248);
+  color: black;
+  border-bottom: 3px rgb(4, 4, 160) solid;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  margin-left: 15px;
+}
+
+.car-buttons {
+  display: flex;
+}
+
+.controls {
+  display: flex;
+  margin-top: 15px;
+}
+
+.flag {
+  position: absolute;
+  right: 10%;
+  width: 50px;
+}
+
+.car-name {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  margin-left: 15px;
+  font-size: 20px;
+}
+
+.car-icon {
+  position: absolute;
+  left: 2%;
+}
