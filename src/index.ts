@@ -10,6 +10,6 @@ import { getCar, getAllCars } from './components/api';
 
   new GarageWrapper(body);
 })();
-
+alert('Привет! Просьба проверить работу после 10 августа. Спасибо!)');
 //new CreateElement(body, header());
 //});

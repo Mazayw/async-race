@@ -26,8 +26,6 @@ export class GarageWrapper extends CreateElement {
 
   winnerPopup: Winner;
 
-  newCar: ICar;
-
   updateCar: ICar;
 
   constructor(parent: HTMLElement) {

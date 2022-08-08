@@ -2,6 +2,7 @@ import { carIcon } from '../../car';
 import { CreateElement } from '../../createElement';
 import { ICar, IEngineStatus } from '../../../interfaces';
 import './index.scss';
+import { flagDraw } from '../flag';
 import {
   updateCar,
   deleteCar,
@@ -81,8 +82,12 @@ export class GarageCar extends CreateElement {
       carIcon(car.color)
     );
 
-    const flag = new CreateElement(road.element, 'img', ['flag']);
-    flag.element.setAttribute('src', './../../assets/flag.svg');
+    const flag: CreateElement = new CreateElement(
+      road.element,
+      'div',
+      ['flag'],
+      flagDraw()
+    );
     flag.element.setAttribute('alt', 'Race flag');
   }
 
