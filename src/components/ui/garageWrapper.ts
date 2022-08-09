@@ -10,6 +10,7 @@ import {
 import { ICar, IAllCars } from '../../interfaces';
 import { GarageCar } from './car/index';
 import { Winner } from './winnerPopup/index';
+import { WinnersWrapper } from './winnersWrapper/index';
 
 export class GarageWrapper extends CreateElement {
   cars: IAllCars;
@@ -38,12 +39,16 @@ export class GarageWrapper extends CreateElement {
       ['button', 'buttons-garage'],
       'To garage'
     );
+
+    toGarage.element.setAttribute('disabled', '');
+
     const toWinners = new CreateElement(
       buttons.element,
       'button',
       ['button', 'buttons-winners'],
       'To winners'
     );
+
     const headerChange = new CreateElement(this.element, 'div', [
       'header-change',
     ]);
@@ -155,9 +160,17 @@ export class GarageWrapper extends CreateElement {
     this.page = new CreateElement(this.element, 'h2', ['title']);
     this.updatePage();
 
-    const pagination = new CreateElement(this.element, 'div', ['pagination']);
+    const garageItemsWrapper = new CreateElement(parent, 'div', [
+      'garage-items__wrapper',
+    ]);
 
-    this.garageItems = new CreateElement(this.element, 'div', ['garage-items']);
+    const pagination = new CreateElement(garageItemsWrapper.element, 'div', [
+      'pagination',
+    ]);
+
+    this.garageItems = new CreateElement(garageItemsWrapper.element, 'div', [
+      'garage-items',
+    ]);
 
     this.drawCars(this.pageNumber, 7);
 
@@ -177,6 +190,9 @@ export class GarageWrapper extends CreateElement {
     );
     buttonNextPage.element.setAttribute('type', 'button');
 
+    const winnersPage = new WinnersWrapper(parent);
+    winnersPage.element.classList.add('invisible');
+
     buttonNextPage.element.onclick = () => {
       this.pageNumber++;
       this.changePage();
@@ -187,6 +203,20 @@ export class GarageWrapper extends CreateElement {
       this.pageNumber--;
       this.changePage();
       this.drawCars();
+    };
+
+    toWinners.element.onclick = () => {
+      garageItemsWrapper.element.classList.add('invisible');
+      winnersPage.element.classList.remove('invisible');
+      toWinners.element.toggleAttribute('disabled');
+      toGarage.element.toggleAttribute('disabled');
+    };
+
+    toGarage.element.onclick = () => {
+      garageItemsWrapper.element.classList.remove('invisible');
+      winnersPage.element.classList.add('invisible');
+      toGarage.element.toggleAttribute('disabled');
+      toWinners.element.toggleAttribute('disabled');
     };
   }
 

@@ -62,9 +62,9 @@ module.exports = {
       template: './src/index.html',
     }),
     new ForkTsCheckerWebpackPlugin(),
-    new CopyPlugin({
-      patterns: [{ from: 'src/assets', to: 'assets' }],
-    }),
+    // new CopyPlugin({
+    //  patterns: [{ from: 'src/assets', to: 'assets' }],
+    // }),
     new ESLintPlugin({
       extensions: ['.tsx', '.ts', '.js'],
       exclude: 'node_modules',

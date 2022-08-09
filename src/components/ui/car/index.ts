@@ -3,6 +3,7 @@ import { CreateElement } from '../../createElement';
 import { ICar, IEngineStatus } from '../../../interfaces';
 import './index.scss';
 import { flagDraw } from '../flag';
+import { deleteWinner } from '../../api';
 import {
   updateCar,
   deleteCar,
@@ -41,7 +42,9 @@ export class GarageCar extends CreateElement {
     );
     buttonDelete.element.onclick = () => {
       if (car.id) deleteCar(car.id);
+      deleteWinner(car.id);
       this.remove();
+
       //update title
     };
 
