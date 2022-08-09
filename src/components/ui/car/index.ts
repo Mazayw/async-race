@@ -24,7 +24,12 @@ export class GarageCar extends CreateElement {
 
   private buttonStop: CreateElement;
 
-  constructor(parent: HTMLElement, car: ICar) {
+  constructor(
+    parent: HTMLElement,
+    car: ICar,
+    name: CreateElement,
+    color: CreateElement
+  ) {
     super(parent, 'li', ['car']);
     this.car = car;
     const buttons = new CreateElement(this.element, 'div', ['car-buttons']);
@@ -34,6 +39,13 @@ export class GarageCar extends CreateElement {
       ['button', 'select'],
       'Select'
     );
+
+    buttonSelect.element.onclick = () => {
+      (name.element as HTMLInputElement).value = car.name;
+      name.element.dataset.id = `${car.id}`;
+      (color.element as HTMLInputElement).value = car.color;
+    };
+
     const buttonDelete = new CreateElement(
       buttons.element,
       'button',
@@ -44,17 +56,8 @@ export class GarageCar extends CreateElement {
       if (car.id) deleteCar(car.id);
       deleteWinner(car.id);
       this.remove();
-
       //update title
     };
-
-    const carName = new CreateElement(
-      buttons.element,
-      'span',
-      ['car-name'],
-      car.name
-    );
-    const road = new CreateElement(this.element, 'div', ['road']);
     const controls = new CreateElement(this.element, 'div', ['controls']);
     this.buttonStart = new CreateElement(
       controls.element,
@@ -77,6 +80,14 @@ export class GarageCar extends CreateElement {
     this.buttonStop.element.onclick = () => {
       if (car.id) this.stopCarEngine(car.id);
     };
+
+    const carName = new CreateElement(
+      buttons.element,
+      'span',
+      ['car-name'],
+      car.name
+    );
+    const road = new CreateElement(this.element, 'div', ['road']);
 
     this.carImg = new CreateElement(
       road.element,

@@ -1,16 +1,18 @@
-import { CreateElement } from '../createElement';
-import { nameGenerator, colorGenerator } from '../randomizer';
+import { CreateElement } from '../../createElement';
+import { nameGenerator, colorGenerator } from '../../randomizer';
 import {
   createCar,
   getAllCars,
   createWinner,
   getWinner,
   updateWinner,
-} from '../api';
-import { ICar, IAllCars } from '../../interfaces';
-import { GarageCar } from './car/index';
-import { Winner } from './winnerPopup/index';
-import { WinnersWrapper } from './winnersWrapper/index';
+} from '../../api';
+import { ICar, IAllCars } from '../../../interfaces';
+import { GarageCar } from '../car/index';
+import { Winner } from '../winnerPopup/index';
+import { WinnersWrapper } from '../winnersWrapper/index';
+import './index.scss';
+import { updateCar } from '../../api';
 
 export class GarageWrapper extends CreateElement {
   cars: IAllCars;
@@ -27,9 +29,11 @@ export class GarageWrapper extends CreateElement {
 
   winnerPopup: Winner;
 
-  updateCar: ICar;
-
   winnersPage: WinnersWrapper;
+
+  nameUpdate: CreateElement;
+
+  colorUpdate: CreateElement;
 
   constructor(parent: HTMLElement) {
     super(parent, 'header', ['header']);
@@ -85,43 +89,52 @@ export class GarageWrapper extends CreateElement {
         await this.updateCars();
         await this.drawCars();
         await this.updateTitle();
+      } else {
+        alert('First you must enter a valid data');
       }
     };
 
     const headerChangeUpdate = new CreateElement(headerChange.element, 'form', [
       'header-change__update',
     ]);
-    const nameUpdate = new CreateElement(
+    this.nameUpdate = new CreateElement(
       headerChangeUpdate.element,
       'input',
       ['name-update'],
       '',
-      true
+      false
     );
     nameAdd.element.setAttribute('type', 'text');
-    const colorUpdate = new CreateElement(
+    this.colorUpdate = new CreateElement(
       headerChangeUpdate.element,
       'input',
       ['color-add'],
       '',
-      true
+      false
     );
-    colorUpdate.element.setAttribute('type', 'color');
+    this.colorUpdate.element.setAttribute('type', 'color');
     const buttonUpdate = new CreateElement(
       headerChangeUpdate.element,
       'button',
       ['button', 'submit-update'],
       'Update',
-      true
+      false
     );
     buttonUpdate.element.setAttribute('type', 'button');
+
+    buttonUpdate.element.onclick = () => {
+      this.updateSelectedCar();
+    };
 
     const headerFormsButtons = new CreateElement(headerChange.element, 'form', [
       'header-forms__buttons',
     ]);
 
+    const buttonsWrapper = new CreateElement(this.element, 'div', [
+      'buttons-wrapper',
+    ]);
     const buttonRace = new CreateElement(
-      headerChangeUpdate.element,
+      buttonsWrapper.element,
       'button',
       ['button', 'button-race'],
       'Race'
@@ -133,7 +146,7 @@ export class GarageWrapper extends CreateElement {
     };
 
     const buttonReset = new CreateElement(
-      headerChangeUpdate.element,
+      buttonsWrapper.element,
       'button',
       ['button', 'button-reset'],
       'Reset'
@@ -145,7 +158,7 @@ export class GarageWrapper extends CreateElement {
     };
 
     const buttonGenerate = new CreateElement(
-      headerChangeUpdate.element,
+      buttonsWrapper.element,
       'button',
       ['button', 'button-generate'],
       'Generate cars'
@@ -256,7 +269,12 @@ export class GarageWrapper extends CreateElement {
     this.garageItems.removeChilds();
     this.cars = await getAllCars(page, limit);
     this.cars.cars.map((el) => {
-      const res = new GarageCar(this.garageItems.element, el);
+      const res = new GarageCar(
+        this.garageItems.element,
+        el,
+        this.nameUpdate,
+        this.colorUpdate
+      );
       this.allCarsElements.push(res);
     });
     console.log(this.allCarsElements);
@@ -303,6 +321,24 @@ export class GarageWrapper extends CreateElement {
       await updateWinner(winnerCar);
     } else {
       await createWinner(winnerCar);
+    }
+  }
+
+  private async updateSelectedCar() {
+    const name = (this.nameUpdate.element as HTMLInputElement).value;
+    const color = (this.colorUpdate.element as HTMLInputElement).value;
+    const id = Number(this.nameUpdate.element.dataset.id);
+
+    if (name && color && id) {
+      const newCar: ICar = {
+        name: name,
+        color: color,
+        id: id,
+      };
+      await updateCar(newCar);
+      this.drawCars();
+    } else {
+      alert('First you must select a car');
     }
   }
 }
