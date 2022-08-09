@@ -124,7 +124,6 @@ export class GarageCar extends CreateElement {
 
   async startCarEngine(id: number): Promise<void> {
     const data = await startStopEngine(id, 'started');
-    console.log(id);
     if (data.status === 200) {
       this.updateButtons(this.buttonStart, this.buttonStop, true);
 

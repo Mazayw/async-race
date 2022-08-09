@@ -41,7 +41,7 @@ export class GarageWrapper extends CreateElement {
 
   constructor(parent: HTMLElement) {
     super(parent, 'header', ['header']);
-    this.updateCars();
+
     const buttons = new CreateElement(this.element, 'div', ['buttons']);
     const toGarage = new CreateElement(
       buttons.element,
@@ -180,12 +180,11 @@ export class GarageWrapper extends CreateElement {
 
     buttonGenerate.element.onclick = () => {
       this.generateCars();
-      console.log('click');
     };
 
     this.title = new CreateElement(garageItemsWrapper.element, 'h2', ['title']);
     this.page = new CreateElement(garageItemsWrapper.element, 'h2', ['title']);
-    this.updatePage();
+    //this.updatePage();
 
     const pagination = new CreateElement(garageItemsWrapper.element, 'div', [
       'pagination',
@@ -219,13 +218,13 @@ export class GarageWrapper extends CreateElement {
 
     this.buttonNextPage.element.onclick = () => {
       this.pageNumber++;
-      this.changePage();
+      this.updatePage();
       this.drawCars();
     };
 
     this.buttonPrevPage.element.onclick = () => {
       this.pageNumber--;
-      this.changePage();
+      this.updatePage();
       this.drawCars();
     };
 
@@ -244,15 +243,14 @@ export class GarageWrapper extends CreateElement {
       toGarage.element.toggleAttribute('disabled');
       toWinners.element.toggleAttribute('disabled');
     };
-  }
 
-  private async changePage(): Promise<void> {
-    this.updatePage();
+    this.updateCars();
   }
 
   private async updateCars(): Promise<void> {
     this.cars = await getAllCars();
     this.updateTitle();
+    this.updatePage();
   }
 
   private async updateTitle(): Promise<void> {
@@ -262,7 +260,6 @@ export class GarageWrapper extends CreateElement {
   private async updatePage(): Promise<void> {
     this.page.element.innerHTML = `Page - ${this.pageNumber}`;
     const totalPages = Math.ceil(Number(this.cars.count) / 7);
-    console.log(totalPages);
 
     if (this.pageNumber === 1) this.buttonPrevPage.setDisabled(true);
     if (this.pageNumber > 1) this.buttonPrevPage.setDisabled(false);
@@ -274,8 +271,6 @@ export class GarageWrapper extends CreateElement {
   private async generateCars(): Promise<void> {
     for (let index = 0; index < 100; index -= -1) {
       const car = { name: nameGenerator(), color: colorGenerator() };
-      console.log('car', car);
-      console.log('tata', index);
       await createCar(car);
       this.updateCars();
     }
@@ -294,7 +289,6 @@ export class GarageWrapper extends CreateElement {
       );
       this.allCarsElements.push(res);
     });
-    console.log(this.allCarsElements);
   }
 
   private async startRaceAllCars(): Promise<void> {
@@ -330,7 +324,6 @@ export class GarageWrapper extends CreateElement {
 
   private async createOrUpdateWinner(winnerCar: ICar): Promise<void> {
     const carData = await getWinner(winnerCar.id);
-
     if (carData.status === 200) {
       carData.result.wins++;
       winnerCar.wins = carData.result.wins;

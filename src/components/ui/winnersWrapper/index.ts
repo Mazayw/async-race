@@ -28,7 +28,6 @@ export class WinnersWrapper extends CreateElement {
     this.title = new CreateElement(this.element, 'h2', ['title']);
     this.page = new CreateElement(this.element, 'h2', ['title']);
 
-    console.log(this.winners);
     const pagination = new CreateElement(this.element, 'div', ['pagination']);
     const sorting = new CreateElement(this.element, 'div', ['sort']);
 
@@ -126,7 +125,6 @@ export class WinnersWrapper extends CreateElement {
   private async updatePage(): Promise<void> {
     this.page.element.innerHTML = `Page - ${this.pageNumber}`;
     const totalPages = Math.ceil(Number(this.winners.total) / 10);
-    console.log(totalPages);
 
     if (this.pageNumber === 1) this.buttonPrevPage.setDisabled(true);
     if (this.pageNumber > 1) this.buttonPrevPage.setDisabled(false);
