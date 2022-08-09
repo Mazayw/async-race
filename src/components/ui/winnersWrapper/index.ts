@@ -88,6 +88,11 @@ export class WinnersWrapper extends CreateElement {
       true
     );
     this.buttonPrevPage.element.setAttribute('type', 'button');
+    this.buttonPrevPage.element.onclick = () => {
+      this.pageNumber--;
+      this.updatePage();
+      this.drawPage();
+    };
 
     this.buttonNextPage = new CreateElement(
       pagination.element,
@@ -96,6 +101,11 @@ export class WinnersWrapper extends CreateElement {
       'Next. Page'
     );
     this.buttonNextPage.element.setAttribute('type', 'button');
+    this.buttonNextPage.element.onclick = () => {
+      this.pageNumber++;
+      this.updatePage();
+      this.drawPage();
+    };
 
     this.drawPage();
   }
