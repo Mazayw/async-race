@@ -4,12 +4,7 @@ import { ICar, IEngineStatus } from '../../../interfaces';
 import './index.scss';
 import { flagDraw } from '../flag';
 import { deleteWinner } from '../../api';
-import {
-  updateCar,
-  deleteCar,
-  startStopEngine,
-  switchEngineDrive,
-} from '../../api';
+import { deleteCar, startStopEngine, switchEngineDrive } from '../../api';
 
 export class GarageCar extends CreateElement {
   private carImg: CreateElement;
@@ -82,12 +77,7 @@ export class GarageCar extends CreateElement {
       if (car.id) this.stopCarEngine(car.id);
     };
 
-    const carName = new CreateElement(
-      buttons.element,
-      'span',
-      ['car-name'],
-      car.name
-    );
+    new CreateElement(buttons.element, 'span', ['car-name'], car.name);
     const road = new CreateElement(this.element, 'div', ['road']);
 
     this.carImg = new CreateElement(

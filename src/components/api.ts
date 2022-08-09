@@ -40,15 +40,13 @@ export const getCar = async (id: number): Promise<ICar | null> => {
 
 export const createCar = async (car: ICar): Promise<void> => {
   try {
-    const data = await fetch(`${url}/garage`, {
+    await fetch(`${url}/garage`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(car),
     });
-
-    //    return data.status;
   } catch (error) {
     throw new Error(error);
   }

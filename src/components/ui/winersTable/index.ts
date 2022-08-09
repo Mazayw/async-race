@@ -16,35 +16,35 @@ export class WinnersTable extends CreateElement {
   }
 
   async drawTable() {
-    const numberTable = new CreateElement(
+    new CreateElement(
       this.element,
       'div',
       ['table-element', 'table-header__number'],
       '№'
     );
 
-    const colorTable = new CreateElement(
+    new CreateElement(
       this.element,
       'div',
       ['table-element', 'table-header__car'],
       'Car'
     );
 
-    const nameTable = new CreateElement(
+    new CreateElement(
       this.element,
       'div',
       ['table-element', 'table-header__name'],
       'Name'
     );
 
-    const winsTable = new CreateElement(
+    new CreateElement(
       this.element,
       'div',
       ['table-element', 'table-header__wins'],
       'Wins'
     );
 
-    const timeTable = new CreateElement(
+    new CreateElement(
       this.element,
       'div',
       ['table-element', 'table-header__time'],
@@ -56,31 +56,31 @@ export class WinnersTable extends CreateElement {
   }
 
   private drawTableRows(n: number, car: ICar): void {
-    const numberTable = new CreateElement(
+    new CreateElement(
       this.element,
       'div',
       ['table-element', 'table__number'],
       `${n + 1}`
     );
-    const colorTable = new CreateElement(
+    new CreateElement(
       this.element,
       'div',
       ['table-element', 'table__color'],
       carIcon(car.color)
     );
-    const nameTable = new CreateElement(
+    new CreateElement(
       this.element,
       'div',
       ['table-element', 'table__name'],
       car.name
     );
-    const winsTable = new CreateElement(
+    new CreateElement(
       this.element,
       'div',
       ['table-element', 'table__wins'],
       `${car.wins}`
     );
-    const timeTable = new CreateElement(
+    new CreateElement(
       this.element,
       'div',
       ['table-element', 'table__time'],
