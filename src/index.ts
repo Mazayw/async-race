@@ -11,6 +11,6 @@ import { WinnersWrapper } from './components/ui/winnersWrapper/index';
 
   new GarageWrapper(body);
 })();
-//alert('Привет! Просьба проверить работу после 10 августа. Спасибо!)');
+alert('Привет! Просьба проверить работу после 10 августа. Спасибо!)');
 //new CreateElement(body, header());
 //});

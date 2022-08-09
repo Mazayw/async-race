@@ -70,7 +70,8 @@ export class GarageCar extends CreateElement {
       controls.element,
       'button',
       ['button', 'stop'],
-      'Stop'
+      'Stop',
+      true
     );
 
     this.buttonStart.element.onclick = () => {

@@ -33,6 +33,11 @@
   cursor: pointer;
   font-weight: 700;
   margin-left: 15px;
+
+  &:disabled {
+    background-color: rgb(216, 233, 238);
+    color: rgb(163, 159, 159);
+  }
 }
 
 .car-buttons {
