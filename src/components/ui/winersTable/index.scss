@@ -1,0 +1,17 @@
+.winner-table {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1fr;
+
+  max-width: 500px;
+}
+
+.table__color {
+  width: 50px;
+}
+
+.table-element {
+  text-align: center;
+  height: 70px;
+  font-weight: 700;
+  margin: 0 auto;
+}
