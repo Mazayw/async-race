@@ -43,6 +43,7 @@ export class GarageWrapper extends CreateElement {
     super(parent, 'header', ['header']);
 
     const buttons = new CreateElement(this.element, 'div', ['buttons']);
+
     const toGarage = new CreateElement(
       buttons.element,
       'button',
@@ -66,6 +67,7 @@ export class GarageWrapper extends CreateElement {
     const headerChange = new CreateElement(garageItemsWrapper.element, 'div', [
       'header-change',
     ]);
+
     const headerChangeAdd = new CreateElement(headerChange.element, 'form', [
       'header-change__add',
     ]);
@@ -80,6 +82,7 @@ export class GarageWrapper extends CreateElement {
     ]);
 
     colorAdd.element.setAttribute('type', 'color');
+
     const buttonAdd = new CreateElement(
       headerChangeAdd.element,
       'button',
@@ -88,6 +91,7 @@ export class GarageWrapper extends CreateElement {
     );
 
     buttonAdd.element.setAttribute('type', 'button');
+
     buttonAdd.element.onclick = async () => {
       const name = (nameAdd.element as HTMLInputElement).value;
       const color = (colorAdd.element as HTMLInputElement).value;
@@ -107,6 +111,7 @@ export class GarageWrapper extends CreateElement {
       'form',
       ['header-change__update']
     );
+
     this.nameUpdate = new CreateElement(
       headerChangeUpdate.element,
       'input',
@@ -114,7 +119,9 @@ export class GarageWrapper extends CreateElement {
       '',
       false
     );
+
     nameAdd.element.setAttribute('type', 'text');
+
     this.colorUpdate = new CreateElement(
       headerChangeUpdate.element,
       'input',
@@ -122,7 +129,9 @@ export class GarageWrapper extends CreateElement {
       '',
       false
     );
+
     this.colorUpdate.element.setAttribute('type', 'color');
+
     const buttonUpdate = new CreateElement(
       headerChangeUpdate.element,
       'button',
@@ -130,6 +139,7 @@ export class GarageWrapper extends CreateElement {
       'Update',
       false
     );
+
     buttonUpdate.element.setAttribute('type', 'button');
 
     buttonUpdate.element.onclick = () => {
@@ -143,12 +153,14 @@ export class GarageWrapper extends CreateElement {
       'div',
       ['buttons-wrapper']
     );
+
     const buttonRace = new CreateElement(
       buttonsWrapper.element,
       'button',
       ['button', 'button-race'],
       'Race'
     );
+
     buttonRace.element.setAttribute('type', 'button');
 
     buttonRace.element.onclick = () => {
@@ -161,6 +173,7 @@ export class GarageWrapper extends CreateElement {
       ['button', 'button-reset'],
       'Reset'
     );
+
     buttonReset.element.setAttribute('type', 'button');
 
     buttonReset.element.onclick = () => {
@@ -181,8 +194,8 @@ export class GarageWrapper extends CreateElement {
     };
 
     this.title = new CreateElement(garageItemsWrapper.element, 'h2', ['title']);
+
     this.page = new CreateElement(garageItemsWrapper.element, 'h2', ['title']);
-    //this.updatePage();
 
     const pagination = new CreateElement(garageItemsWrapper.element, 'div', [
       'pagination',
@@ -201,6 +214,7 @@ export class GarageWrapper extends CreateElement {
       'Prev. Page',
       true
     );
+
     this.buttonPrevPage.element.setAttribute('type', 'button');
 
     this.buttonNextPage = new CreateElement(
@@ -209,9 +223,11 @@ export class GarageWrapper extends CreateElement {
       ['button', 'button-generate'],
       'Next. Page'
     );
+
     this.buttonNextPage.element.setAttribute('type', 'button');
 
     this.winnersPage = new WinnersWrapper(parent);
+
     this.winnersPage.element.classList.add('invisible');
 
     this.buttonNextPage.element.onclick = () => {

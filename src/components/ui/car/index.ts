@@ -47,12 +47,14 @@ export class GarageCar extends CreateElement {
       ['button', 'delete'],
       'Delete'
     );
+
     buttonDelete.element.onclick = () => {
       if (car.id) deleteCar(car.id);
       deleteWinner(car.id);
       this.remove();
       //update title
     };
+
     const controls = new CreateElement(this.element, 'div', ['controls']);
     this.buttonStart = new CreateElement(
       controls.element,
@@ -78,6 +80,7 @@ export class GarageCar extends CreateElement {
     };
 
     new CreateElement(buttons.element, 'span', ['car-name'], car.name);
+
     const road = new CreateElement(this.element, 'div', ['road']);
 
     this.carImg = new CreateElement(
@@ -93,6 +96,7 @@ export class GarageCar extends CreateElement {
       ['flag'],
       flagDraw()
     );
+
     flag.element.setAttribute('alt', 'Race flag');
   }
 

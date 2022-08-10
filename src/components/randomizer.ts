@@ -83,8 +83,8 @@ const names = {
 export const nameGenerator = () => {
   const brandLength = names.brand.length;
   const titleLength = names.title.length;
-  const brand = names.brand[Math.ceil(Math.random() * brandLength)];
-  const title = names.title[Math.ceil(Math.random() * titleLength)];
+  const brand = names.brand[Math.ceil(Math.random() * (brandLength - 1))];
+  const title = names.title[Math.ceil(Math.random() * (titleLength - 1))];
   return `${brand} ${title}`;
 };
 

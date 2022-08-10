@@ -62,6 +62,7 @@ export class WinnersWrapper extends CreateElement {
       ['button', 'button-sort'],
       'Sort by Wins Asc'
     );
+
     buttonSortWinsA.element.onclick = () => {
       this.sort = 'wins';
       this.order = 'ASC';
@@ -74,6 +75,7 @@ export class WinnersWrapper extends CreateElement {
       ['button', 'button-sort'],
       'Sort by Wins Desc'
     );
+
     buttonSortWinsD.element.onclick = () => {
       this.sort = 'wins';
       this.order = 'DESC';
@@ -87,6 +89,7 @@ export class WinnersWrapper extends CreateElement {
       'Prev. Page',
       true
     );
+
     this.buttonPrevPage.element.setAttribute('type', 'button');
     this.buttonPrevPage.element.onclick = () => {
       this.pageNumber--;
@@ -100,6 +103,7 @@ export class WinnersWrapper extends CreateElement {
       ['button', 'button-generate'],
       'Next. Page'
     );
+
     this.buttonNextPage.element.setAttribute('type', 'button');
     this.buttonNextPage.element.onclick = () => {
       this.pageNumber++;

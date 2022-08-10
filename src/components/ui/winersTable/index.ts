@@ -62,24 +62,28 @@ export class WinnersTable extends CreateElement {
       ['table-element', 'table__number'],
       `${n + 1}`
     );
+
     new CreateElement(
       this.element,
       'div',
       ['table-element', 'table__color'],
       carIcon(car.color)
     );
+
     new CreateElement(
       this.element,
       'div',
       ['table-element', 'table__name'],
       car.name
     );
+
     new CreateElement(
       this.element,
       'div',
       ['table-element', 'table__wins'],
       `${car.wins}`
     );
+
     new CreateElement(
       this.element,
       'div',
